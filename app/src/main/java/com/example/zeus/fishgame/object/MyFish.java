@@ -21,7 +21,7 @@ public class MyFish extends GameObject implements IMyFish{
     private Bitmap myplane;			 // 飞机飞行时的图片
     private Bitmap myplane2;		 // 飞机爆炸时的图片
     private Bitmap myplaneR;         // 飞机反转
-    private float resize=1.0f;
+    private float resize=0.5f;
     private MainView mainView;
     private boolean LoR;
     private GameObjectFactory factory;
@@ -41,7 +41,7 @@ public class MyFish extends GameObject implements IMyFish{
     public void setScreenWH(float screen_width, float screen_height) {
         super.setScreenWH(screen_width, screen_height);
         object_x = screen_width/2 - object_width/2;
-        object_y = screen_height - object_height;
+        object_y = screen_height/2 - object_height/2;
         middle_x = object_x + object_width/2;
         middle_y = object_y + object_height/2;
     }
@@ -93,12 +93,16 @@ public class MyFish extends GameObject implements IMyFish{
         if(isAlive){
             int x = (int) (currentFrame * object_width); // 获得当前帧相对于位图的X坐标
             canvas.save();
-            canvas.clipRect(object_x, object_y, object_x + object_width, object_y + object_height);
+            canvas.clipRect(object_x, object_y, object_x + (int)(object_width * resize ), object_y + (int)(object_height * resize) );
             //鱼的反转
             if(!LoR)
-                canvas.drawBitmap(myplane, object_x , object_y, paint);
+                canvas.drawBitmap(myplane, new Rect(0, 0, (int)object_width, (int)object_height),
+                        new Rect((int)object_x, (int)object_y, (int)object_x + (int)(object_width * resize),  (int)(resize * object_height) + (int)object_y), paint);
+                //canvas.drawBitmap(myplane, object_x , object_y, paint);
             else
-                canvas.drawBitmap(myplaneR, object_x , object_y, paint);
+                canvas.drawBitmap(myplaneR, new Rect(0, 0, (int)object_width, (int)object_height),
+                        new Rect((int)object_x, (int)object_y, (int)object_x + (int)(object_width * resize),(int)(resize * object_height)+ (int)object_y), paint);
+
             canvas.restore();
 
         }

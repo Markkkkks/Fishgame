@@ -19,6 +19,7 @@ import com.example.zeus.fishgame.sounds.GameSoundPool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by zeus on 2016/11/15.
@@ -55,7 +56,7 @@ public class MainView extends BaseView {
         myPlane = (MyFish) factory.createMyPlane(getResources());//生产玩家的飞机
         myPlane.setMainView(this);
         thread = new Thread(this);
-        sumScore=5000;
+        sumScore=0;
         enemyFishs = new ArrayList<EnermyFish>();
         for(int i = 0;i < testFish.sumCount;i++){
             //生产小型敌机

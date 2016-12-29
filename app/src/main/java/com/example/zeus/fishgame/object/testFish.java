@@ -21,7 +21,7 @@ public class testFish extends EnermyFish {
     private Bitmap Smallplane2;
     public static int sumCount = 8;	 	 	 //	对象总的数量
     private int randomsize;
-
+    private float resize=0.5f;
     public testFish(Resources resources) {
         super(resources);
         // TODO Auto-generated constructor stub
@@ -97,14 +97,16 @@ public class testFish extends EnermyFish {
             if(!isExplosion){
                 if(isVisible){
                     canvas.save();
-                    canvas.clipRect(object_x,object_y,object_x + object_width,object_y + object_height);
+                    canvas.clipRect(object_x, object_y, object_x + (int)(object_width * resize ), object_y + (int)(object_height * resize) );
                     if(!LoR) {
 
-                        canvas.drawBitmap(Smallplane1, object_x, object_y, paint);
+                        canvas.drawBitmap(Smallplane1, new Rect(0, 0, (int)object_width, (int)object_height),
+                                new Rect((int)object_x, (int)object_y, (int)object_x + (int)(object_width * resize),  (int)(resize * object_height) + (int)object_y), paint);
                     }
                     else
+                    canvas.drawBitmap(Smallplane2, new Rect(0, 0, (int)object_width, (int)object_height),
+                            new Rect((int)object_x, (int)object_y, (int)object_x + (int)(object_width * resize),(int)(resize * object_height)+ (int)object_y), paint);
 
-                        canvas.drawBitmap(Smallplane2, object_x, object_y,paint);
                     canvas.restore();
                 }
                 logic();
